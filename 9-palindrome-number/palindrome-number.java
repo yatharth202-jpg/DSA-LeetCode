@@ -1,21 +1,20 @@
 class Solution {
     public boolean isPalindrome(int x) {
-        int OriginalNum = x;
-        int result = 0;
-
-        while(x>0) {
-    
-        int digit = x % 10 ;
-
-        result = result*10 + digit;
-
-        x = x/10;
-        }
-
-        if(result == OriginalNum) {
-            return true;
-        } else {
+  // Negative numbers and numbers ending with 0 (except 0) are not palindromes
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
             return false;
         }
+
+        int reversed = 0;
+
+        // Reverse half of the number
+        while (x > reversed) {
+            reversed = reversed * 10 + x % 10;
+            x /= 10;
+        }
+
+        // For even digits: x == reversed
+        // For odd digits: x == reversed / 10
+        return x == reversed || x == reversed / 10;
 }
 }
