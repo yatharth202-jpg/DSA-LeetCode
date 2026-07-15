@@ -1,0 +1,39 @@
+name: Rename LeetCode Folders
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rename folders
+        run: |
+          for d in *; do
+            if [ -d "$d" ]; then
+              num=$(echo "$d" | cut -d'-' -f1)
+              if [[ "$num" =~ ^[0-9]+$ ]]; then
+                new=$(printf "%04d" "$num")
+                rest=$(echo "$d" | cut -d'-' -f2-)
+                if [ "$d" != "$new-$rest" ]; then
+                  mv "$d" "$new-$rest"
+                fi
+              fi
+            fi
+          done
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "Auto rename folders"
+          git push
