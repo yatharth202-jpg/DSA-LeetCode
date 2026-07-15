@@ -13,14 +13,9 @@ class Solution {
        
        int big ,small;
 
-       //if(oddSum > evenSum) {
         big = oddSum;
         small = evenSum;
-       /*} else {
-        big = evenSum;
-        small = oddSum;
-       }*/
-
+    
        while (small != 0) {
         int rem = big % small;
         big = small;
