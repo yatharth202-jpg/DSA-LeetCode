@@ -21,7 +21,7 @@ jobs:
             if [ -d "$d" ]; then
               num=$(echo "$d" | cut -d'-' -f1)
               if [[ "$num" =~ ^[0-9]+$ ]]; then
-                new=$(printf "%04d" "$num")
+                new=$(printf "%04d" "$((10#$num))")
                 rest=$(echo "$d" | cut -d'-' -f2-)
                 if [ "$d" != "$new-$rest" ]; then
                   mv "$d" "$new-$rest"
