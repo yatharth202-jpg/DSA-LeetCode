@@ -10,25 +10,32 @@
  */
 class Solution {
     public ListNode middleNode(ListNode head) {
-        ListNode temp = head;
-        ListNode curr = head;
+        int n = 0;
 
-        int i = 0;
+        ListNode temp = head;
+
         while(temp.next != null) {
-            i++;
+            n++;
+            temp = temp.next;
+        }
+        
+        temp = head;
+        int m = 0;
+
+        if(n%2 == 0) {
+            m = n/2;
+        } else {
+            m = n/2 + 1;
+        }
+        
+
+        for(int i = 0; i< m ; i++) {
             temp = temp.next;
         }
 
-        if( (i%2) == 0) {
-         for(int j = 0; j < (( i / 2) ) ; j++ ) {
-            curr = curr.next;
-         }
-         return curr;
-    } else {
-        for(int j = 0; j < (( i / 2) +1 ) ; j++ ) {
-            curr = curr.next;
-         }
-         return curr;
-    }
+        head = temp;
+
+        return head;
+
     }
 }
