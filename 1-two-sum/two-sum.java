@@ -1,16 +1,24 @@
-class Solution {
+import java.util.HashMap;
+import java.util.Map;
+
+public class Solution {
     public int[] twoSum(int[] nums, int target) {
-         int n = nums.length;
-        for (int i = 1; i < n; i++)
-        {
-            for (int j = i; j < n; j++)
-            { 
-                if (nums[j] + nums[j-i] == target) {
-                    ;
-                    return new int [] {j-i,j};     
-                }
+        // Create a hash map to store the value and its corresponding index
+        Map<Integer, Integer> numToIndex = new HashMap<>();
+        
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            
+            // If the complement exists in the map, we found the pair
+            if (numToIndex.containsKey(complement)) {
+                return new int[] { numToIndex.get(complement), i };
             }
+            
+            // Otherwise, store the current number and its index in the map
+            numToIndex.put(nums[i], i);
         }
-        return null;
+        
+        // Return an empty array or throw an exception if no solution exists
+        throw new IllegalArgumentException("No two sum solution");
     }
 }
