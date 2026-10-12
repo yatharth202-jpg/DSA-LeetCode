@@ -1,18 +1,19 @@
-public class Solution {
+class Solution {
     public int majorityElement(int[] nums) {
-        int count = 0;
         int candidate = 0;
-
-        for (int num : nums) {
-            // If count falls to 0, we pick the current number as the new candidate
+        int count = 0;
+        
+        // Traditional for loop format
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i]; // Array se element nikalna
+            
             if (count == 0) {
                 candidate = num;
             }
             
-            // If the current number matches the candidate, increment count; otherwise decrement
             count += (num == candidate) ? 1 : -1;
         }
-
+        
         return candidate;
     }
 }
