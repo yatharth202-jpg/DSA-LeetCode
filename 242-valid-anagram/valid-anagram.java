@@ -4,8 +4,7 @@ class Solution {
             return false;
         }
         
-        // 'a' se 'z' tak ke 26 letters ke counts ko store karne ke liye array
-        int[] charCounts = new int[26];
+         int[] charCounts = new int[26];
         
         // Pehli string ke character par count badhao (+1) 
         // Aur dusri string ke character par count ghatao (-1)
