@@ -13,46 +13,36 @@ class Solution {
         if (head == null || head.next == null) {
             return true;
         }
-
-        // Find the middle of the linked list
+        
+        // 1. Find the middle of the linked list
         ListNode slow = head;
         ListNode fast = head;
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-
-        // Reverse the second half of the list
-        ListNode secondHalfHead = reverseList(slow);
-        ListNode p1 = head;
-        ListNode p2 = secondHalfHead;
-
-        // Compare the first half and the reversed second half
-        boolean result = true;
-        while (p2 != null) {
-            if (p1.val != p2.val) {
-                result = false;
-                break;
-            }
-            p1 = p1.next;
-            p2 = p2.next;
-        }
-
-        // Optional: Restore the original list structure
-        reverseList(secondHalfHead);
-
-        return result;
-    }
-
-    private ListNode reverseList(ListNode head) {
+        
+        // 2. Reverse the second half of the list
         ListNode prev = null;
-        ListNode curr = head;
+        ListNode curr = slow;
         while (curr != null) {
-            ListNode nextTemp = curr.next;
+            ListNode nextNode = curr.next;
             curr.next = prev;
             prev = curr;
-            curr = nextTemp;
+            curr = nextNode;
         }
-        return prev;
+        
+        // 3. Compare the first half and the reversed second half
+        ListNode firstHalf = head;
+        ListNode secondHalf = prev; // prev now points to the head of the reversed half
+        while (secondHalf != null) {
+            if (firstHalf.val != secondHalf.val) {
+                return false;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+        
+        return true;
     }
 }
