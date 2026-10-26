@@ -9,29 +9,38 @@
  * }
  */
 
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        // Create a dummy node to easily handle head-removal edge cases
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
+        // 1. Create a dummy node to seamlessly handle edge cases (like removing the head node)
+        ListNode dummy = new ListNode(0, head);
+        ListNode fast = dummy;
+        ListNode slow = dummy;
         
-        int length = 0;
-        ListNode first = head;
-        while (first != null) {
-            length++;
-            first = first.next;
+        // 2. Advance the fast pointer 'n' steps ahead to establish the gap
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
         }
         
-        // We need to reach the (length - n)th node
-        int target = length - n;
-        ListNode curr = dummy;
-        for (int i = 0; i < target; i++) {
-            curr = curr.next;
+        // 3. Move both pointers together until fast reaches the last node
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
         }
         
-        // Skip the Nth node from the end
-        curr.next = curr.next.next;
+        // 4. Bypasses the target node (slow.next is the node to delete)
+        slow.next = slow.next.next;
         
+        // Return the actual head of the list
         return dummy.next;
     }
 }
